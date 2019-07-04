@@ -1,4 +1,4 @@
-im=imread('000004.jpg');
+im=imread('new.jpg');
 im=rgb2gray(im);
 im=255-im;
 imshow(im);
@@ -25,24 +25,20 @@ end
 figure;imshow(Label==la);title(nnz(Label==la));
 imbw=(Label==la);
 %imshow(Label==i);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% h=[-1,1];
+% 
+% [Gx, Gy] = imgradientxy(imbw,'prewitt');
+% figure;
+% imshow(Gx);
+% figure;
 
-%derivate in vertical direction
+A=imbw;
+[centers, radii, metric] = imfindcircles(A,[1 30]);
 
-h=[-1,1];
-imzzz=imfilter(bwim,h);
-imshow(imzzz);
-
-h=[-1;1];
-imyyy=imfilter(imzzz,h);
-imshow(imyyy);
-
-se = strel('disk',5);
-bwfilled = imclose(imyyy,se);
-
-filled=imfill(bwfilled,'holes');
-imshowpair(filled,bwfilled,'montage');
-%imshow(im);
+centersStrong5 = centers(1:10,:); 
+radiiStrong5 = radii(1:10);
+metricStrong5 = metric(1:10);
 
 
-
-
+viscircles(centersStrong5, radiiStrong5,'EdgeColor','b');
